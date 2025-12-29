@@ -4,6 +4,9 @@ from dash import dcc
 from dash.html import Div, Label
 from dash_local_react_components import load_react_component
 import ai
+from magi.brains.melchior import MELCHIOR_PERSONALITY
+from magi.brains.balthasar import BALTHASAR_PERSONALITY
+from magi.brains.casper import CASPER_PERSONALITY
 
 app = Dash(__name__)
 
@@ -25,17 +28,17 @@ app.layout = Div(
                 id={'type': 'wise-man', 'name': 'melchior'},
                 name='melchior',
                 order_number=1,
-                personality='You are a scientist. Your goal is to further our understanding of the universe and advance our technological progress.'),
+                personality=MELCHIOR_PERSONALITY.build_system_prompt()),
             WiseMan(
                 id={'type': 'wise-man', 'name': 'balthasar'},
                 name='balthasar',
                 order_number=2,
-                personality='You are a mother. Your goal is to protect your children and ensure their well-being.'),
+                personality=BALTHASAR_PERSONALITY.build_system_prompt()),
             WiseMan(
                 id={'type': 'wise-man', 'name': 'casper'},
                 name='casper',
                 order_number=3,
-                personality='You are a woman. Your goal is to pursue love, dreams and desires.'),
+                personality=CASPER_PERSONALITY.build_system_prompt()),
             Response(id='response', status='info')
         ]),
         Div(className='input-container', children=[

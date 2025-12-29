@@ -1,13 +1,13 @@
 # MAGI
 
-MAGI system is a cluster of three AI supercomputers that manage and support all task performed by the NERV organization from their Tokyo-3 headquarter.
+MAGI system is a cluster of three AI supercomputers that manage and support all tasks performed by the NERV organization from their Tokyo-3 headquarters.
 
 Originally designed by Dr. Naoko Akagi, each of the three AI agents reflects a separate part of her complex personality:
-- MELCHIOR • 1 - her as a scientist,
-- BALTHASAR • 2 - her as a mother,
-- CASPER • 3 - her as a woman.
+- **MELCHIOR • 1** - The Scientist: analytical, empirical, truth-seeking
+- **BALTHASAR • 2** - The Mother: protective, nurturing, compassionate  
+- **CASPER • 3** - The Woman: passionate, freedom-seeking, meaning-driven
 
-Those (often conflicting, yet complementary) agents participate in a voting process in order to answer most challenging questions. 
+These often conflicting yet complementary agents participate in a sophisticated deliberation process to answer humanity's most challenging questions.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/TomaszRewak/MAGI/master/examples/example_1.gif" width=800/>
@@ -17,73 +17,130 @@ Those (often conflicting, yet complementary) agents participate in a voting proc
   <img src="https://raw.githubusercontent.com/TomaszRewak/MAGI/master/examples/example_2.gif" width=800/>
 </p>
 
-## Implementation
+## Architecture (v2.0)
 
-The presented implementation of the MAGI system is powered by the ChatGPT-3.5 large language model. (Upgrading the model to ChatGPT-4 in the future may bring further improvements in its abilities).
+The MAGI system has been completely refactored with a sophisticated decision engine:
 
-The procedure of answering questions is as follows:
-1. The question is classified in order to determine if it can be answered with a "yes"/"no" response.
-2. The question (as is) is presented to each MAGI agent.
-3. If the question was classified as a "yes"/"no" question, each agent is tasked with classifying their respective answers into one of those two categories (and optionally listing additional conditions if the actual answer is too complex).
+```
+magi/
+├── core/
+│   ├── engine.py      # MAGIEngine - orchestrates deliberation
+│   ├── brain.py       # Brain - individual supercomputer unit
+│   ├── personality.py # Personality - psychological profiles
+│   └── decision.py    # Decision, Verdict, Consensus types
+├── brains/
+│   ├── melchior.py    # The Scientist personality
+│   ├── balthasar.py   # The Mother personality
+│   └── casper.py      # The Woman personality
+├── llm/
+│   └── client.py      # Modern OpenAI API integration
+└── api.py             # High-level API for applications
+```
 
-The system can produce following responses (that are evaluated in this order):
-- error (誤 差) - if one or more agents encountered an error
-- info (情 報) - if the question was not classified as a "yes"/"no" question
-- no (拒 絶) - if at least one of the agent answered with a "no"
-- conditional (状 態) - if at least one agent answered with a conditional "yes"
-- yes (合 意) - if all agents answered with an unconditional "yes"
+### Key Features
 
-Individual agents can be inspected in order to view their full replies and additional conditions.
+- **Multi-round Deliberation**: Brains engage in multiple rounds, considering each other's positions
+- **Cross-examination**: Each brain critically examines the others' arguments
+- **Weighted Voting**: Verdicts include confidence scores for nuanced consensus
+- **Rich Personalities**: Deep psychological profiles with values, biases, and cognitive styles
+- **Consensus Synthesis**: Intelligent synthesis of agreements and disagreements
 
-Each subsystem was fine-tuned using following prompts:
-- MELCHIOR • 1 - You are a scientist. Your goal is to further our understanding of the universe and advance our technological progress.
-- BALTHASAR • 2 - You are a mother. Your goal is to protect your children and ensure their well-being.
-- CASPER • 3 - You are a woman. Your goal is to pursue love, dreams and desires.
+### Deliberation Process
+
+1. **Question Classification**: Determine question type (yes/no, open, analytical, ethical, predictive)
+2. **Independent Analysis**: Each brain analyzes from its unique perspective
+3. **Initial Verdicts**: Each brain forms an independent position with confidence level
+4. **Cross-examination**: Brains examine and respond to each other's positions
+5. **Updated Verdicts**: Positions refined after considering other arguments
+6. **Consensus Synthesis**: Final decision with agreements, disagreements, and conditions
+
+### Consensus Types
+
+- **UNANIMOUS** (合意) - All three brains agree
+- **MAJORITY** - Two brains agree, one dissents
+- **CONDITIONAL** (状態) - Agreement with conditions attached
+- **DEADLOCK** - No clear majority reached
+- **INFORMATIONAL** (情報) - Non-decision question answered
+
+### Brain Personalities
+
+**MELCHIOR (The Scientist)**
+- Cognitive Style: Analytical
+- Primary Values: Truth, Knowledge, Progress, Objectivity
+- Strengths: Rigorous logic, synthesizing complex information, long-term thinking
+- Blindspots: May undervalue emotional or intuitive considerations
+
+**BALTHASAR (The Mother)**
+- Cognitive Style: Empathetic
+- Primary Values: Protection, Wellbeing, Compassion, Safety
+- Strengths: Understanding emotional needs, protecting the vulnerable, generational thinking
+- Blindspots: May be overprotective, slow to accept necessary risks
+
+**CASPER (The Woman)**
+- Cognitive Style: Intuitive
+- Primary Values: Freedom, Self-actualization, Love, Meaning
+- Strengths: Understanding motivation, creative solutions, enabling flourishing
+- Blindspots: May underestimate practical constraints, romanticize risk
 
 ## Usage
 
-*In order to follow those steps, you need `git` and `python` (version 3) installed on your system. The presented steps should work on the Windows OS (for linux systems the process should be similar, but may differ slightly).*
+### Prerequisites
+- Python 3.9+
+- OpenAI API key
 
-1. Clone the repo:
+### Installation
 
-```
+```bash
+# Clone the repository
 git clone https://github.com/TomaszRewak/MAGI.git
-```
-
-2. Navigate to the cloned directory:
-
-```
 cd MAGI
-```
 
-3. Create python virtual environment:
-
-```
+# Create and activate virtual environment
 python -m venv .venv
-```
+source .venv/bin/activate  # On Windows: .\.venv\Scripts\activate
 
-4. Activate the virtual environment:
-
-```
-.\.venv\scripts\activate
-```
-
-5. Install dependencies:
-
-```
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-6. Start the app:
+### Running the Application
 
-```
+```bash
+# Set API key (recommended)
+export OPENAI_API_KEY="your-api-key"
+
+# Start the server
 python main.py
 ```
 
-7. Navigate to http://127.0.0.1:8050/ in your web browser.
+Navigate to http://127.0.0.1:8050/ in your browser.
 
-8. Paste your openAI API key into the `access code` field (alternatively you can set the `OPENAI_API_KEY` environment variable before starting the app).
+### Programmatic Usage
 
-9. Write your question into the `question` field and hit enter.
+```python
+from magi import MAGIEngine
+from magi.brains import MELCHIOR, BALTHASAR, CASPER
+from magi.llm import create_openai_client
 
-10. Click on individual subsystems to inspect their answers.
+# Create the engine
+client = create_openai_client(api_key="your-key")
+engine = MAGIEngine(
+    brains=[MELCHIOR, BALTHASAR, CASPER],
+    llm_client=client
+)
+
+# Run deliberation
+decision = engine.deliberate("Should humanity pursue interstellar travel?")
+
+print(f"Consensus: {decision.consensus_type.value}")
+print(f"Final verdict: {decision.final_verdict.value}")
+print(f"Synthesis: {decision.synthesis}")
+
+# Access individual brain positions
+for name, verdict in decision.final_verdicts.items():
+    print(f"{name}: {verdict.summary} (confidence: {verdict.confidence:.0%})")
+```
+
+## License
+
+MIT License
