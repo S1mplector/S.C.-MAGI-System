@@ -1,9 +1,15 @@
 """
-CASPER • 3
-==========
+CASPER • 3 (MAGI-3)
+===================
 
 The Woman aspect of Dr. Naoko Akagi.
 Embodies passion, desire, dreams, and the full complexity of human yearning.
+
+Designation: CASPER
+MAGI Number: 3
+Personality Aspect: Woman
+
+"What makes life worth living?"
 """
 
 from ..core.personality import (
@@ -11,6 +17,8 @@ from ..core.personality import (
     CognitiveStyle, RiskTolerance, DecisionSpeed
 )
 from ..core.brain import Brain, BrainConfig
+from ..ptos.matrix import PersonalityAspect
+from ..ptos.transplant import TransplantProcedure
 
 
 CASPER_PERSONALITY = Personality(
@@ -110,3 +118,24 @@ def create_casper(config: BrainConfig = None) -> Brain:
 
 # Pre-instantiated with default config
 CASPER = create_casper()
+
+
+def transplant_casper() -> tuple:
+    """
+    Execute the Personality Transplant procedure for CASPER.
+    
+    Returns:
+        Tuple of (PersonalityMatrix, OrganicProcessor) from the transplant.
+    """
+    procedure = TransplantProcedure()
+    result = procedure.execute(
+        designation="CASPER",
+        magi_number=3,
+        aspect=PersonalityAspect.WOMAN,
+        source_name="Dr. Naoko Akagi"
+    )
+    
+    if result.success:
+        return result.matrix, result.processor
+    else:
+        raise RuntimeError(f"CASPER transplant failed: {result.errors}")

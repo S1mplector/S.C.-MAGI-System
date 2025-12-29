@@ -4,17 +4,26 @@ MAGI API
 
 High-level API for the MAGI system, providing simple functions
 for the Dash application to interact with the decision engine.
+
+This module bridges the PTOS-based architecture with
+the Dash frontend, maintaining backward compatibility while exposing
+the full power of the Personality Transplant Operating System.
 """
 
-from typing import Optional, Dict, Any, Tuple
-from dataclasses import dataclass
+from typing import Optional, Dict, Any, Tuple, List
+from dataclasses import dataclass, field
 import threading
+from datetime import datetime
 
 from .core.engine import MAGIEngine, EngineConfig
 from .core.brain import Brain, BrainConfig
 from .core.decision import Decision, VerdictType
 from .brains import create_melchior, create_balthasar, create_casper
 from .llm.client import create_openai_client
+from .ptos.matrix import PersonalityAspect
+from .ptos.transplant import TransplantProcedure
+from .network.system import MAGISystem as MAGISystemCore, MAGIUnit, SystemStatus, AlertLevel
+from .network.consensus import ConsensusProtocol, DecisionCategory, VoteType, Vote
 
 
 @dataclass

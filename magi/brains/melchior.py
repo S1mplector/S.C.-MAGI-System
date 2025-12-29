@@ -1,9 +1,16 @@
 """
-MELCHIOR • 1
-============
+MELCHIOR • 1 (MAGI-1)
+=====================
 
 The Scientist aspect of Dr. Naoko Akagi.
 Embodies logic, empirical reasoning, and the pursuit of knowledge.
+
+Designation: MELCHIOR
+MAGI Number: 1
+Personality Aspect: Scientist
+Original IP: 83.83.231.195 (as part of MAGI-01 system)
+
+"Understanding is humanity's highest calling."
 """
 
 from ..core.personality import (
@@ -11,6 +18,8 @@ from ..core.personality import (
     CognitiveStyle, RiskTolerance, DecisionSpeed
 )
 from ..core.brain import Brain, BrainConfig
+from ..ptos.matrix import PersonalityMatrix, PersonalityAspect, CoreValue, CognitivePattern, EmotionalSchema
+from ..ptos.transplant import TransplantProcedure
 
 
 MELCHIOR_PERSONALITY = Personality(
@@ -110,3 +119,24 @@ def create_melchior(config: BrainConfig = None) -> Brain:
 
 # Pre-instantiated with default config
 MELCHIOR = create_melchior()
+
+
+def transplant_melchior() -> tuple:
+    """
+    Execute the Personality Transplant procedure for MELCHIOR.
+    
+    Returns:
+        Tuple of (PersonalityMatrix, OrganicProcessor) from the transplant.
+    """
+    procedure = TransplantProcedure()
+    result = procedure.execute(
+        designation="MELCHIOR",
+        magi_number=1,
+        aspect=PersonalityAspect.SCIENTIST,
+        source_name="Dr. Naoko Akagi"
+    )
+    
+    if result.success:
+        return result.matrix, result.processor
+    else:
+        raise RuntimeError(f"MELCHIOR transplant failed: {result.errors}")

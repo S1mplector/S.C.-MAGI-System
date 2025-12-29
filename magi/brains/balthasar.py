@@ -1,9 +1,15 @@
 """
-BALTHASAR • 2
-=============
+BALTHASAR • 2 (MAGI-2)
+======================
 
 The Mother aspect of Dr. Naoko Akagi.
 Embodies protection, nurturing, and the fierce love of a parent.
+
+Designation: BALTHASAR
+MAGI Number: 2
+Personality Aspect: Mother
+
+"Protection above all else."
 """
 
 from ..core.personality import (
@@ -11,6 +17,8 @@ from ..core.personality import (
     CognitiveStyle, RiskTolerance, DecisionSpeed
 )
 from ..core.brain import Brain, BrainConfig
+from ..ptos.matrix import PersonalityAspect
+from ..ptos.transplant import TransplantProcedure
 
 
 BALTHASAR_PERSONALITY = Personality(
@@ -110,3 +118,24 @@ def create_balthasar(config: BrainConfig = None) -> Brain:
 
 # Pre-instantiated with default config
 BALTHASAR = create_balthasar()
+
+
+def transplant_balthasar() -> tuple:
+    """
+    Execute the Personality Transplant procedure for BALTHASAR.
+    
+    Returns:
+        Tuple of (PersonalityMatrix, OrganicProcessor) from the transplant.
+    """
+    procedure = TransplantProcedure()
+    result = procedure.execute(
+        designation="BALTHASAR",
+        magi_number=2,
+        aspect=PersonalityAspect.MOTHER,
+        source_name="Dr. Naoko Akagi"
+    )
+    
+    if result.success:
+        return result.matrix, result.processor
+    else:
+        raise RuntimeError(f"BALTHASAR transplant failed: {result.errors}")

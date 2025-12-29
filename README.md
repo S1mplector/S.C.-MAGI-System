@@ -1,13 +1,20 @@
-# MAGI
+# S.C. MAGI System (マギ)
 
-MAGI system is a cluster of three AI supercomputers that manage and support all tasks performed by the NERV organization from their Tokyo-3 headquarters.
+> *"The Magi System, often referred to as just the Magi, is a set of three supercomputers that work in tandem to control, manage and automate various important systems within NERV HQ."*
 
-Originally designed by Dr. Naoko Akagi, each of the three AI agents reflects a separate part of her complex personality:
-- **MELCHIOR • 1** - The Scientist: analytical, empirical, truth-seeking
-- **BALTHASAR • 2** - The Mother: protective, nurturing, compassionate  
-- **CASPER • 3** - The Woman: passionate, freedom-seeking, meaning-driven
+The MAGI system is a cluster of three AI supercomputers that manage and support all tasks performed by the NERV organization from their Tokyo-3 headquarters.
 
-These often conflicting yet complementary agents participate in a sophisticated deliberation process to answer humanity's most challenging questions.
+## Origin
+
+The S.C. MAGI System was designed and developed by **Dr. Naoko Akagi** during her research into bio-computers at Gehirn. The MAGI's **7th generation organic computers** were implanted with three differing aspects of Dr. Akagi's personality using the **Personality Transplant OS**:
+
+| Unit | Designation | Aspect | Personality |
+|------|-------------|--------|-------------|
+| MAGI-1 | **MELCHIOR** | Scientist | Analytical, empirical, truth-seeking |
+| MAGI-2 | **BALTHASAR** | Mother | Protective, nurturing, compassionate |
+| MAGI-3 | **CASPER** | Woman | Passionate, freedom-seeking, meaning-driven |
+
+These often conflicting yet complementary personalities participate in a sophisticated deliberation and voting process. For major decisions such as **self-destruction, unanimous consensus among all three MAGI must be reached**.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/TomaszRewak/MAGI/master/examples/example_1.gif" width=800/>
@@ -19,31 +26,51 @@ These often conflicting yet complementary agents participate in a sophisticated 
 
 ## Architecture (v2.0)
 
-The MAGI system has been completely refactored with a sophisticated decision engine:
+The MAGI system has been completely rebuilt to be more lore-accurate while maintaining modern functionality:
 
 ```
 magi/
-├── core/
-│   ├── engine.py      # MAGIEngine - orchestrates deliberation
-│   ├── brain.py       # Brain - individual supercomputer unit
-│   ├── personality.py # Personality - psychological profiles
-│   └── decision.py    # Decision, Verdict, Consensus types
-├── brains/
-│   ├── melchior.py    # The Scientist personality
-│   ├── balthasar.py   # The Mother personality
-│   └── casper.py      # The Woman personality
-├── llm/
-│   └── client.py      # Modern OpenAI API integration
-└── api.py             # High-level API for applications
+├── ptos/                      # Personality Transplant Operating System
+│   ├── matrix.py              # PersonalityMatrix - encoded personality
+│   ├── organic.py             # OrganicProcessor - 7th gen bio-computer
+│   ├── transplant.py          # TransplantProcedure - personality encoding
+│   └── engram.py              # MemoryEngram - associative memory
+│
+├── network/                   # MAGI Network Infrastructure  
+│   ├── system.py              # MAGISystem - complete 3-unit system
+│   ├── consensus.py           # ConsensusProtocol - voting mechanisms
+│   ├── network.py             # MAGINetwork - global installations
+│   └── achiral.py             # MAGIAchiral - Rebuild modular system
+│
+├── brains/                    # The Three Personalities
+│   ├── melchior.py            # MAGI-1: The Scientist
+│   ├── balthasar.py           # MAGI-2: The Mother
+│   └── casper.py              # MAGI-3: The Woman
+│
+├── core/                      # Core Decision Engine
+│   ├── engine.py              # MAGIEngine - deliberation orchestrator
+│   ├── brain.py               # Brain - LLM-powered reasoning
+│   ├── personality.py         # Personality - trait definitions
+│   └── decision.py            # Decision/Verdict data structures
+│
+├── llm/                       # LLM Integration
+│   └── client.py              # OpenAI API (v1.0+)
+│
+└── api.py                     # High-level application API
 ```
 
 ### Key Features
 
+- **Personality Transplant OS (PTOS)**: Lore-accurate personality encoding system
+- **7th Generation Organic Processor**: Bio-neural computing simulation with neural clusters and synapses
+- **Memory Engrams**: Associative memory with spreading activation
 - **Multi-round Deliberation**: Brains engage in multiple rounds, considering each other's positions
 - **Cross-examination**: Each brain critically examines the others' arguments
 - **Weighted Voting**: Verdicts include confidence scores for nuanced consensus
-- **Rich Personalities**: Deep psychological profiles with values, biases, and cognitive styles
-- **Consensus Synthesis**: Intelligent synthesis of agreements and disagreements
+- **Consensus Protocol**: Different thresholds for routine vs critical decisions
+- **MAGI Network**: Support for replica installations (MAGI-02 through MAGI-06)
+- **Intrusion Detection**: Security system inspired by the Ireul attack defense
+- **MAGI Achiral**: Modular rack-based system from Rebuild continuity
 
 ### Deliberation Process
 
@@ -62,25 +89,62 @@ magi/
 - **DEADLOCK** - No clear majority reached
 - **INFORMATIONAL** (情報) - Non-decision question answered
 
+### The Personality Transplant OS
+
+The PTOS captures the essential qualities of a personality - not just behavioral patterns, but the deep psychological structures that define how a person thinks, feels, and decides:
+
+```python
+from magi import TransplantProcedure, PersonalityAspect
+
+# Execute personality transplant
+procedure = TransplantProcedure()
+result = procedure.execute(
+    designation="MELCHIOR",
+    magi_number=1,
+    aspect=PersonalityAspect.SCIENTIST,
+    source_name="Dr. Naoko Akagi"
+)
+
+# Access the transplanted matrix
+matrix = result.matrix
+processor = result.processor
+```
+
 ### Brain Personalities
 
-**MELCHIOR (The Scientist)**
-- Cognitive Style: Analytical
+**MELCHIOR (The Scientist)** - *"Understanding is humanity's highest calling"*
+- Cognitive Style: Analytical, systematic, methodical
 - Primary Values: Truth, Knowledge, Progress, Objectivity
+- Core Identity: The intellectual brilliance of Dr. Akagi, her relentless pursuit of truth
 - Strengths: Rigorous logic, synthesizing complex information, long-term thinking
 - Blindspots: May undervalue emotional or intuitive considerations
 
-**BALTHASAR (The Mother)**
-- Cognitive Style: Empathetic
+**BALTHASAR (The Mother)** - *"Protection above all else"*
+- Cognitive Style: Empathetic, precautionary, nurturing
 - Primary Values: Protection, Wellbeing, Compassion, Safety
+- Core Identity: The maternal heart of Dr. Akagi, her fierce protectiveness
 - Strengths: Understanding emotional needs, protecting the vulnerable, generational thinking
 - Blindspots: May be overprotective, slow to accept necessary risks
 
-**CASPER (The Woman)**
-- Cognitive Style: Intuitive
+**CASPER (The Woman)** - *"What makes life worth living?"*
+- Cognitive Style: Intuitive, holistic, passionate
 - Primary Values: Freedom, Self-actualization, Love, Meaning
+- Core Identity: The passionate self of Dr. Akagi, her desires and dreams
 - Strengths: Understanding motivation, creative solutions, enabling flourishing
 - Blindspots: May underestimate practical constraints, romanticize risk
+
+### Known MAGI Installations
+
+| ID | Location | Status |
+|----|----------|--------|
+| MAGI-01 | Tokyo-3, Japan | Original (NERV HQ) |
+| MAGI-02 | Matsushiro, Japan | Replica |
+| MAGI-03 | Berlin, Germany | Replica |
+| MAGI-04 | Massachusetts, USA | Replica |
+| MAGI-05 | Hamburg, Germany | Replica |
+| MAGI-06 | Beijing, China | Replica |
+
+*Note: NERV's 2nd Branch in Nevada may have possessed its own MAGI before disappearing into a Sea of Dirac.*
 
 ## Usage
 
@@ -92,8 +156,8 @@ magi/
 
 ```bash
 # Clone the repository
-git clone https://github.com/TomaszRewak/MAGI.git
-cd MAGI
+git clone https://github.com/S1mplector/S.C-MAGI-System.git
+cd S.C-MAGI-System
 
 # Create and activate virtual environment
 python -m venv .venv
@@ -118,28 +182,71 @@ Navigate to http://127.0.0.1:8050/ in your browser.
 ### Programmatic Usage
 
 ```python
-from magi import MAGIEngine
-from magi.brains import MELCHIOR, BALTHASAR, CASPER
-from magi.llm import create_openai_client
+from magi import MAGISystem, create_openai_client
 
-# Create the engine
+# Initialize the MAGI System
+system = MAGISystem(installation_id="MAGI-01", location="Tokyo-3")
+system.initialize()  # Executes personality transplant for all three units
+
+# Connect LLM
 client = create_openai_client(api_key="your-key")
-engine = MAGIEngine(
-    brains=[MELCHIOR, BALTHASAR, CASPER],
-    llm_client=client
+system.set_llm_client(client)
+system.activate()
+
+# Run deliberation (require_unanimous=True for critical decisions)
+result = system.deliberate(
+    "Should we activate the self-destruct sequence?",
+    require_unanimous=True  # Per MAGI protocol
 )
 
-# Run deliberation
-decision = engine.deliberate("Should humanity pursue interstellar travel?")
+print(f"Consensus: {result['consensus']}")
+print(f"Action Authorized: {result['action_authorized']}")
 
-print(f"Consensus: {decision.consensus_type.value}")
-print(f"Final verdict: {decision.final_verdict.value}")
-print(f"Synthesis: {decision.synthesis}")
-
-# Access individual brain positions
-for name, verdict in decision.final_verdicts.items():
-    print(f"{name}: {verdict.summary} (confidence: {verdict.confidence:.0%})")
+# Access individual verdicts
+for name, verdict in result['verdicts'].items():
+    print(f"{name}: {verdict['verdict']} ({verdict.get('confidence', 0):.0%})")
 ```
+
+### Using the MAGI Achiral (Rebuild)
+
+```python
+from magi import MAGIAchiral
+
+# Initialize Achiral system (8 banks, 12 modules each)
+achiral = MAGIAchiral(installation_id="ACHIRAL-WUNDER", num_banks=8)
+stats = achiral.activate()
+print(f"Activated {stats['modules']} modules across {stats['banks']} banks")
+
+# Run distributed deliberation
+result = achiral.deliberate("Decrypt Angel-Sealing Hex Pillar")
+print(f"Verdict: {result['final_verdict']} ({result['final_confidence']:.0%})")
+```
+
+### Network Operations
+
+```python
+from magi import MAGINetwork, IntrusionDetector
+
+# Initialize network from Tokyo-3
+network = MAGINetwork(local_installation="MAGI-01")
+
+# Connect to other installations
+network.connect("MAGI-03")  # Berlin
+network.connect("MAGI-04")  # Massachusetts
+
+# Broadcast a query
+recipients = network.broadcast("query", {"question": "Status report"})
+
+# Handle potential attacks (inspired by SEELE invasion)
+if network.intrusion_detector.blocked_nodes:
+    network.initiate_defense_mode()
+```
+
+## References
+
+- Based on the MAGI System from *Neon Genesis Evangelion* and *Rebuild of Evangelion*
+- Names derived from the biblical Magi (Three Wise Men/Three Kings)
+- Original MAGI IP address: `83.83.231.195` (Episode 17)
 
 ## License
 
