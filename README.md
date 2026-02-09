@@ -24,7 +24,7 @@ These often conflicting yet complementary personalities participate in a sophist
   <img src="https://raw.githubusercontent.com/TomaszRewak/MAGI/master/examples/example_2.gif" width=800/>
 </p>
 
-## Architecture (v2.0)
+## Architecture (v2.1 - GEHIRN)
 
 The MAGI system has been completely rebuilt to be more lore-accurate while maintaining modern functionality:
 
@@ -40,7 +40,10 @@ magi/
 │   ├── system.py              # MAGISystem - complete 3-unit system
 │   ├── consensus.py           # ConsensusProtocol - voting mechanisms
 │   ├── network.py             # MAGINetwork - global installations
-│   └── achiral.py             # MAGIAchiral - Rebuild modular system
+│   ├── achiral.py             # MAGIAchiral - Rebuild modular system
+│   ├── protocols.py           # Pribnow codes, Type-666 firewall (v2.1)
+│   ├── synchronization.py     # Inter-MAGI aspect synchronization (v2.1)
+│   └── seele.py               # SEELE attack detection & defense (v2.1)
 │
 ├── brains/                    # The Three Personalities
 │   ├── melchior.py            # MAGI-1: The Scientist
@@ -51,7 +54,10 @@ magi/
 │   ├── engine.py              # MAGIEngine - deliberation orchestrator
 │   ├── brain.py               # Brain - LLM-powered reasoning
 │   ├── personality.py         # Personality - trait definitions
-│   └── decision.py            # Decision/Verdict data structures
+│   ├── decision.py            # Decision/Verdict data structures
+│   ├── dilemma.py             # Dilemma Protocol - ethical conflicts (v2.1)
+│   ├── marduk.py              # Marduk Institute - pilot evaluation (v2.1)
+│   └── naoko.py               # Dr. Akagi psychological foundation (v2.1)
 │
 ├── llm/                       # LLM Integration
 │   └── client.py              # OpenAI API (v1.0+)
@@ -71,6 +77,17 @@ magi/
 - **MAGI Network**: Support for replica installations (MAGI-02 through MAGI-06)
 - **Intrusion Detection**: Security system inspired by the Ireul attack defense
 - **MAGI Achiral**: Modular rack-based system from Rebuild continuity
+
+#### New in v2.1 (GEHIRN)
+
+- **Dilemma Protocol**: Sophisticated ethical conflict resolution between personality aspects
+- **Pribnow Box Codes**: Secure authentication system for critical operations
+- **Type-666 Firewall**: Dr. Akagi's anti-intrusion protection system
+- **Emergency Protocols**: NERV-style escalating emergency procedures (including OMEGA-0 self-destruct)
+- **Inter-MAGI Synchronization**: Deep aspect conflict modeling and synthesis
+- **SEELE Detection**: Pattern recognition for coordinated attack defense
+- **Marduk Institute**: Pilot candidate and personnel evaluation system
+- **Naoko Foundation**: Deep psychological context from Dr. Akagi's psyche
 
 ### Deliberation Process
 
