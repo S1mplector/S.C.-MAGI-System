@@ -14,12 +14,13 @@ import re
 
 from .personality import Personality
 from .decision import Verdict, VerdictType, Argument
+from ..llm.client import completion_token_kwargs, temperature_kwargs
 
 
 @dataclass
 class BrainConfig:
     """Configuration for brain behavior."""
-    model: str = "gpt-4"
+    model: str = "gpt-5"
     temperature: float = 0.7
     max_tokens: int = 1500
     deliberation_rounds: int = 2
@@ -65,15 +66,26 @@ class Brain:
         kwargs = {
             "model": self.config.model,
             "messages": messages,
-            "temperature": self.config.temperature,
-            "max_tokens": self.config.max_tokens,
+            **completion_token_kwargs(self.config.model, self.config.max_tokens),
+            **temperature_kwargs(self.config.model, self.config.temperature),
         }
         
         if response_format == "json":
             kwargs["response_format"] = {"type": "json_object"}
-        
-        response = self._llm_client.chat.completions.create(**kwargs)
-        return response.choices[0].message.content
+
+        try:
+            response = self._llm_client.chat.completions.create(**kwargs)
+            return response.choices[0].message.content
+        except Exception:
+            # Some models/endpoints do not support response_format=json_object.
+            # Retry once without the API-level constraint while preserving
+            # the prompt's JSON instruction.
+            if response_format == "json":
+                fallback_kwargs = dict(kwargs)
+                fallback_kwargs.pop("response_format", None)
+                response = self._llm_client.chat.completions.create(**fallback_kwargs)
+                return response.choices[0].message.content
+            raise
     
     def analyze_question(self, question: str) -> Dict[str, Any]:
         """

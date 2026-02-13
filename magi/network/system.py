@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Callable
 from enum import Enum
 from datetime import datetime
+import os
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 
@@ -24,6 +25,7 @@ from ..ptos.matrix import PersonalityMatrix, PersonalityAspect
 from ..ptos.organic import OrganicProcessor, ProcessingMode
 from ..ptos.transplant import TransplantProcedure
 from ..ptos.engram import EngramStore
+from ..llm.client import completion_token_kwargs, temperature_kwargs
 
 
 class SystemStatus(Enum):
@@ -129,14 +131,15 @@ class MAGIUnit:
         
         # Call LLM
         try:
+            model = os.getenv("MAGI_MODEL", "gpt-5")
             response = self._llm_client.chat.completions.create(
-                model="gpt-4",
+                model=model,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": query}
                 ],
-                temperature=0.7,
-                max_tokens=1500
+                **temperature_kwargs(model, 0.7),
+                **completion_token_kwargs(model, 1500)
             )
             
             content = response.choices[0].message.content
@@ -177,15 +180,16 @@ Respond in JSON format:
 }}"""
 
         try:
+            model = os.getenv("MAGI_MODEL", "gpt-5")
             response = self._llm_client.chat.completions.create(
-                model="gpt-4",
+                model=model,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": verdict_prompt}
                 ],
                 response_format={"type": "json_object"},
-                temperature=0.7,
-                max_tokens=1000
+                **temperature_kwargs(model, 0.7),
+                **completion_token_kwargs(model, 1000)
             )
             
             import json

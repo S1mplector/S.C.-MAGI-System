@@ -17,6 +17,7 @@ from .decision import (
     Decision, Verdict, VerdictType, 
     DeliberationRound, ConsensusType
 )
+from ..llm.client import completion_token_kwargs, temperature_kwargs
 
 
 @dataclass
@@ -27,7 +28,7 @@ class EngineConfig:
     parallel_processing: bool = True
     consensus_threshold: float = 0.7  # Confidence threshold for consensus
     deadlock_resolution: str = "majority"  # "majority", "cautious", "optimistic"
-    model: str = "gpt-4"
+    model: str = "gpt-5"
     temperature: float = 0.7
 
 
@@ -95,8 +96,29 @@ class MAGIEngine:
         
         Returns: "yes_no", "open", "analytical", "ethical", "predictive"
         """
+        q = (question or "").strip().lower()
+
+        # Fast local heuristic path to reduce extra LLM calls.
+        if q:
+            first = re.split(r"\s+", q, maxsplit=1)[0]
+            yes_no_starters = {
+                "is", "are", "am", "was", "were",
+                "do", "does", "did",
+                "can", "could", "should", "would", "will",
+                "have", "has", "had",
+                "may", "might", "must",
+            }
+            if first in yes_no_starters:
+                return "yes_no"
+            if any(word in q for word in ["moral", "ethic", "right thing", "wrong", "should we"]):
+                return "ethical"
+            if any(word in q for word in ["predict", "forecast", "future", "probability", "likely"]):
+                return "predictive"
+            if any(word in q for word in ["analyze", "analyse", "compare", "tradeoff", "optimize", "evaluate"]):
+                return "analytical"
+        
         if not self._llm_client:
-            raise RuntimeError("No LLM client configured")
+            return "open"
         
         messages = [
             {"role": "system", "content": """You classify questions by type. Answer with ONLY one of these exact words:
@@ -111,8 +133,8 @@ class MAGIEngine:
         response = self._llm_client.chat.completions.create(
             model=self.config.model,
             messages=messages,
-            max_tokens=20,
-            temperature=0.0
+            **completion_token_kwargs(self.config.model, 20),
+            **temperature_kwargs(self.config.model, 0.0),
         )
         
         result = response.choices[0].message.content.strip().lower()
@@ -450,8 +472,8 @@ Synthesize the outcome:"""}
         response = self._llm_client.chat.completions.create(
             model=self.config.model,
             messages=messages,
-            max_tokens=200,
-            temperature=0.3
+            **completion_token_kwargs(self.config.model, 200),
+            **temperature_kwargs(self.config.model, 0.3),
         )
         
         return response.choices[0].message.content.strip()
